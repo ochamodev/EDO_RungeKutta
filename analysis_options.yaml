@@ -29,6 +29,7 @@ linter:
     prefer_final_locals: true
     prefer_single_quotes: true
     avoid_redundant_argument_values: true
+    eol_at_end_of_file: true
 
 
 analyzer:
