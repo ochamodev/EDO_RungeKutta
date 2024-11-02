@@ -2,6 +2,8 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart' as Material;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:runge_kutta_app/state/app_state.dart';
+import 'package:runge_kutta_app/state/notifier/app_notifier.dart';
 
 class CalculationsTable extends ConsumerWidget {
   CalculationsTable({super.key});
@@ -9,6 +11,7 @@ class CalculationsTable extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     const BorderSide tableBorder = const BorderSide();
+    final AppState appState = ref.watch(appNotifierProvider);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -55,24 +58,7 @@ class CalculationsTable extends ConsumerWidget {
                       label: Text('RK4')
                   ),
                 ],
-                rows: const <Material.DataRow>[
-                  Material.DataRow(
-                      cells: [
-                        Material.DataCell(Text('William')),
-                        Material.DataCell(Text('27')),
-                        Material.DataCell(Text('Associate Professor')),
-                        Material.DataCell(Text('William fafdfadf')),
-                      ]
-                  ),
-                  Material.DataRow(
-                      cells: [
-                        Material.DataCell(Text('William')),
-                        Material.DataCell(Text('27')),
-                        Material.DataCell(Text('Associate Professor')),
-                        Material.DataCell(Text('William fafdfadf')),
-                      ]
-                  ),
-                ],
+                rows: mapItems(appState.calculations)
               ),
             ),
           ),
@@ -80,4 +66,19 @@ class CalculationsTable extends ConsumerWidget {
       ],
     );
   }
+
+  List<Material.DataRow> mapItems(List<CalculationRow> items) {
+    const int decimalPlaces = 4;
+    return items.map((CalculationRow it) {
+      return Material.DataRow(
+        cells: [
+          Material.DataCell(Text(it.xn.toStringAsFixed(4))),
+          Material.DataCell(Text(it.rk1.toStringAsFixed(4))),
+          Material.DataCell(Text(it.rk2.toStringAsFixed(4))),
+          Material.DataCell(Text(it.rk4.toStringAsFixed(4)))
+        ]
+      );
+    }).toList();
+  }
+
 }

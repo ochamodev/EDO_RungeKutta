@@ -1,10 +1,14 @@
 
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:runge_kutta_app/model/request/solve_runga_kutta.model.dart';
 import 'package:runge_kutta_app/page/component/calculations_table.dart';
 import 'package:runge_kutta_app/page/component/value_form.dart';
+import 'package:runge_kutta_app/state/app_state.dart';
+import 'package:runge_kutta_app/state/notifier/app_notifier.dart';
 import 'package:runge_kutta_app/state/provider/theme_provider.dart';
 import 'package:runge_kutta_app/util/theme.dart';
+import 'package:widget_zoom/widget_zoom.dart';
 
 
 class RungeKuttaPage extends ConsumerWidget {
@@ -13,8 +17,8 @@ class RungeKuttaPage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AppThemeState appThemeState = ref.watch(appThemeProvider);
-
-    return Acrylic(
+    final AppState state = ref.watch(appNotifierProvider);
+     return Acrylic(
       shadowColor: appThemeState.color.light,
       child: ScaffoldPage(
         header: const PageHeader(
@@ -35,9 +39,13 @@ class RungeKuttaPage extends ConsumerWidget {
                 ),
                 const Spacer(),
                 Expanded(
-                    child: Image.network(
-                      'https://platform.polygon.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/13712762/Samus_Returns.jpg?quality=90&strip=all&crop=6.875%2C0%2C86.25%2C100&w=2048'
-                    )
+                  flex: 3,
+                  child: WidgetZoom(
+                    heroAnimationTag: 'tag',
+                    zoomWidget: Image.network(
+                      'http://localhost:8000${state.imageUrl.url}?t=${DateTime.now().millisecond}',
+                    ),
+                  )
                 ),
               ],
             ),
