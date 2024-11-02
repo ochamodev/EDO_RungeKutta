@@ -37,10 +37,12 @@ dependencies:
   system_theme: 3.1.2
   flutter_acrylic: 1.1.4
   freezed: 2.5.7
+  widget_zoom: 0.0.4
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: 1.0.8
   json_annotation: 4.9.0
+  dio: 5.7.0
 
 dev_dependencies:
   flutter_test:
